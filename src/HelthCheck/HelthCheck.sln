@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelthCheck.Web", "HelthCheck.Web\HelthCheck.Web.csproj", "{61C7E84F-A659-4065-8296-D10938AB15FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelthCheck.Web", "HelthCheck.Web\HelthCheck.Web.csproj", "{61C7E84F-A659-4065-8296-D10938AB15FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelthCheck.Data", "HelthCheck.Data\HelthCheck.Data.csproj", "{442D294A-309C-427D-A3D2-5BD029FAE6CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{61C7E84F-A659-4065-8296-D10938AB15FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61C7E84F-A659-4065-8296-D10938AB15FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61C7E84F-A659-4065-8296-D10938AB15FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{442D294A-309C-427D-A3D2-5BD029FAE6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{442D294A-309C-427D-A3D2-5BD029FAE6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{442D294A-309C-427D-A3D2-5BD029FAE6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{442D294A-309C-427D-A3D2-5BD029FAE6CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

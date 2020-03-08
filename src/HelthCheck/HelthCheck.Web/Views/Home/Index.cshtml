@@ -1,7 +1,14 @@
-﻿@{
+﻿@model IEnumerable<TargetHostViewModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
 </div>
+
+<h3>Hosts: @Model.Count()</h3>
+@foreach (var host in Model)
+{
+    <p>@host.Id : @host.Host</p>
+}
