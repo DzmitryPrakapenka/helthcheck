@@ -51,7 +51,7 @@ namespace HelthCheck.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //InitializeDatabaseAsync(app.ApplicationServices).Wait();
+            InitializeDatabaseAsync(app.ApplicationServices).Wait();
         }
 
         private async Task InitializeDatabaseAsync(IServiceProvider serviceProvider)

@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelthCheck.Web.Data
 {
-    public class ApplicationContext : IdentityDbContext<AppUser, AppRole, int>
+    public class ApplicationContext : DbContext //IdentityDbContext<AppUser, AppRole, int>
     {
         public ApplicationContext(DbContextOptions options) : base(options)
         {
         }
 
-        public virtual DbSet<Check> CheckList { get; set; }
+        public virtual DbSet<Check> Checks { get; set; }
 
         public virtual DbSet<TargetHost> TargetHosts { get; set; }
 
