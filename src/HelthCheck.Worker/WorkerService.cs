@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using HelthCheck.Web.Data;
+using HelthCheck.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +16,7 @@ namespace HelthCheck.Worker
         private readonly ILogger<WorkerService> _logger;
         private readonly ApplicationContext _applicationContext;
         private readonly IServiceProvider _serviceProvider;
-        private readonly List<ICronJob> _cronJobs;
+        private readonly List<JobListItem> _cronJobs;
 
         public WorkerService(ILogger<WorkerService> logger,
             ApplicationContext applicationContext,
@@ -26,31 +25,57 @@ namespace HelthCheck.Worker
             _logger = logger;
             _applicationContext = applicationContext;
             _serviceProvider = serviceProvider;
-            _cronJobs = new List<ICronJob>();
+            _cronJobs = new List<JobListItem>();
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             var checks = await _applicationContext.Checks
-                .Include(c => c.TargetHost)
+                .Where(c => c.Status == CheckStatus.Active)
+                .Select(c => new
+                {
+                    Id = c.Id,
+                    Host = c.TargetHost.IP,
+                    Url = c.HelthCheckUrl,
+                    Cron = c.Cron
+                })
                 .ToArrayAsync();
 
             foreach (var check in checks)
             {
-                var checkJob = _serviceProvider.GetRequiredService<ICronJob>();
+                CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
 
-                checkJob.ScheduleJob(check.Cron, $"{check.TargetHost.IP}/{check.HelthCheckUrl}", check.Id);
+                var task = Task.Factory.StartNew(() =>
+                {
+                    var checkJob = _serviceProvider.GetRequiredService<ICronJob>();
 
-                checkJob.Start();
+                    checkJob.ScheduleJob(check.Cron,
+                        $"{check.Host}/{check.Url}",
+                        check.Id,
+                        cancelTokenSource.Token);
 
-                _cronJobs.Add(checkJob);
+                    checkJob.Start();
+                }, cancelTokenSource.Token);
+
+                _cronJobs.Add(new JobListItem()
+                {
+                    CheckId = check.Id,
+                    CancellationTokenSource = cancelTokenSource
+                });
             }
 
-            _logger.LogInformation("Worker started");
+            _logger.LogInformation("Worker has been started");
+            //while (Console.ReadKey(true).Key == ConsoleKey.Escape)
+            //{
+            //    var item = _cronJobs.FirstOrDefault();
+
+            //    item.CancellationTokenSource.Cancel();
+            //}
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Worker has been stoped");
             return Task.CompletedTask;
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HelthCheck.Web.Data
+namespace HelthCheck.Data.Entities
 {
     public class TargetHost : AuditableEntity
     {

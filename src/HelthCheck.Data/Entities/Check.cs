@@ -1,4 +1,6 @@
-﻿namespace HelthCheck.Web.Data
+﻿using System.Collections.Generic;
+
+namespace HelthCheck.Data.Entities
 {
     public class Check : AuditableEntity
     {
@@ -10,6 +12,10 @@
 
         public string Cron { get; set; }
 
+        public CheckStatus Status { get; set; }
+
         public virtual TargetHost TargetHost { get; set; }
+
+        public virtual ICollection<CheckResult> CheckResults { get; set; } = new HashSet<CheckResult>();
     }
 }

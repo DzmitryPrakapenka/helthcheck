@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using System.Threading.Tasks;
 
 namespace HelthCheck.Worker
 {
@@ -9,8 +8,8 @@ namespace HelthCheck.Worker
 
         string CheckUrl { get; }
 
-        void ScheduleJob(string cron, string url, int checkId);
+        void ScheduleJob(string cron, string url, int checkId, CancellationToken cancellationToken);
 
-        void Start(CancellationToken cancellationToken = default);
+        void Start();
     }
 }

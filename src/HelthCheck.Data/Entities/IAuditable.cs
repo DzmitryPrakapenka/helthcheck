@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HelthCheck.Web.Data
+namespace HelthCheck.Data.Entities
 {
     public interface IAuditable
     {

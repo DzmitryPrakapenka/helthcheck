@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TargetHostViewModel>
+﻿@model IEnumerable<CheckListViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -10,5 +10,5 @@
 <h3>Hosts: @Model.Count()</h3>
 @foreach (var host in Model)
 {
-    <p>@host.Id : @host.Host</p>
+    <p>@host.Id : @host.Host/@host.Url</p>
 }

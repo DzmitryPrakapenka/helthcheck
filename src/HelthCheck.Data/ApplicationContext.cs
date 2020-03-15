@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace HelthCheck.Web.Data
+namespace HelthCheck.Data.Entities
 {
     public class ApplicationContext : DbContext //IdentityDbContext<AppUser, AppRole, int>
     {
@@ -13,6 +13,8 @@ namespace HelthCheck.Web.Data
         }
 
         public virtual DbSet<Check> Checks { get; set; }
+
+        public virtual DbSet<CheckResult> CheckResults { get; set; }
 
         public virtual DbSet<TargetHost> TargetHosts { get; set; }
 

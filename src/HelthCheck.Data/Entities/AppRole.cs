@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace HelthCheck.Web.Data
+namespace HelthCheck.Data.Entities
 {
     public class AppRole : IdentityRole<int>, IAuditable
     {

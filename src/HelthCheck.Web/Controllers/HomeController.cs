@@ -1,7 +1,9 @@
 ﻿using System.Linq;
-using HelthCheck.Web.Data;
+using System.Threading.Tasks;
+using HelthCheck.Data.Entities;
 using HelthCheck.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace HelthCheck.Web.Controllers
@@ -18,14 +20,15 @@ namespace HelthCheck.Web.Controllers
             _applicationContext = applicationContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var hosts = _applicationContext.TargetHosts
-                .Select(t => new TargetHostViewModel()
+            var hosts = await _applicationContext.Checks
+                .Select(t => new CheckListViewModel()
                 {
                     Id = t.Id,
-                    Host = t.IP
-                }).ToArray();
+                    Host = t.TargetHost.IP,
+                    Url = t.HelthCheckUrl
+                }).ToArrayAsync();
 
             return View(hosts);
         }

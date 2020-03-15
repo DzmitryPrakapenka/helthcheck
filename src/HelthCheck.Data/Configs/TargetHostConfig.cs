@@ -1,4 +1,4 @@
-﻿using HelthCheck.Web.Data;
+﻿using HelthCheck.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

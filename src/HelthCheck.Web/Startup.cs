@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using HelthCheck.Web.Data;
+using HelthCheck.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -73,6 +73,7 @@ namespace HelthCheck.Web
                         Id = 1,
                         Cron = @"*/1 * * * *",
                         HelthCheckUrl = "test",
+                        Status = CheckStatus.Active,
                         TargetHost = targetHost
                     };
 
@@ -81,13 +82,20 @@ namespace HelthCheck.Web
                         Id = 2,
                         Cron = @"*/1 * * * *",
                         HelthCheckUrl = "test2",
+                        Status = CheckStatus.Active,
                         TargetHost = targetHost
+                    };
+
+                    CheckResult checkResult = new CheckResult()
+                    {
+                        Check = check1,
+                        Status = CheckResultStatus.Success
                     };
 
                     db.TargetHosts.Add(targetHost);
                     db.Checks.Add(check1);
                     db.Checks.Add(check2);
-
+                    db.CheckResults.Add(checkResult);
                     await db.SaveChangesAsync();
                 }
             }
