@@ -51,7 +51,7 @@ namespace HelthCheck.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            InitializeDatabaseAsync(app.ApplicationServices).Wait();
+            //InitializeDatabaseAsync(app.ApplicationServices).Wait();
         }
 
         private async Task InitializeDatabaseAsync(IServiceProvider serviceProvider)
@@ -68,7 +68,25 @@ namespace HelthCheck.Web
                         IP = "127.0.0.1"
                     };
 
+                    Check check1 = new Check()
+                    {
+                        Id = 1,
+                        Cron = @"*/1 * * * *",
+                        HelthCheckUrl = "test",
+                        TargetHost = targetHost
+                    };
+
+                    Check check2 = new Check()
+                    {
+                        Id = 2,
+                        Cron = @"*/1 * * * *",
+                        HelthCheckUrl = "test2",
+                        TargetHost = targetHost
+                    };
+
                     db.TargetHosts.Add(targetHost);
+                    db.Checks.Add(check1);
+                    db.Checks.Add(check2);
 
                     await db.SaveChangesAsync();
                 }

@@ -8,6 +8,8 @@
 
         public string HelthCheckUrl { get; set; }
 
+        public string Cron { get; set; }
+
         public virtual TargetHost TargetHost { get; set; }
     }
 }
